@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 
 export const Characters = () => {
+	const { store, actions } = useContext(Context);
+	useEffect(() => {
+		actions.getPeople("https://swapi.dev/api/people/");
+	}, []);
+
 	return (
 		<>
 			<h1 className="characters">Characters</h1>
@@ -8,7 +14,7 @@ export const Characters = () => {
 				<div className="card">
 					<img src="http://placehold.it/300x150" className="card-img-top" alt="" />
 					<div className="card-body">
-						<h5 className="card-title">Card title</h5>
+						<h5 className="card-title">{store.people !== null ? store.people[0].name : "hola"}</h5>
 						<p className="card-text">
 							This is a longer card with supporting text below as a natural lead-in to additional content.
 							This content is a little bit longer.
